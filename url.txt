@@ -1,0 +1,1 @@
+http://kartta.liikennevirasto.fi/meriliikenne/dgds/wms_ip/merikartta?request=GetMap&BBOX=346670,6655590,356670,6665590&width=4096&height=4096&layers=cells&format=image/png&srs=EPSG:3067
