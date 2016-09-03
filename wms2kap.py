@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 import pyproj
+import urllib
+import tempfile
+import subprocess
 
 p1 = pyproj.Proj(init="epsg:3067")
 p2 = pyproj.Proj(init="epsg:4326")
@@ -16,6 +19,7 @@ y2 = 6665590
 
 # calculate image scale
 imagesize = 4096
+imagesize = 1024
 dpi = 72
 dpm = dpi / 0.0254
 imagemeters = imagesize / dpm
@@ -52,11 +56,30 @@ wmstmpl = "http://kartta.liikennevirasto.fi/meriliikenne/dgds/wms_ip/merikartta?
 print(kaptmpl % (imagesize, imagesize, dpi, scale, averagelatitude,
   0,imagesize-1, wgsy1, wgsx1,
   0,0, wgsy2, wgsx1,
-  0,0, wgsy2, wgsx2,
-  imagesize-1,0, wgsy1, wgsx2,
+  imagesize-1,0, wgsy2, wgsx2,
+  imagesize-1,imagesize-1, wgsy1, wgsx2,
   wgsy1, wgsx1,
   wgsy2, wgsx1,
   wgsy2, wgsx2,
   wgsy1, wgsx2))
 
+kapfile = tempfile.NamedTemporaryFile(suffix=".kap")
+kapfile.write(kaptmpl % (imagesize, imagesize, dpi, scale, averagelatitude,
+  0,imagesize-1, wgsy1, wgsx1,
+  0,0, wgsy2, wgsx1,
+  imagesize-1,0, wgsy2, wgsx2,
+  imagesize-1,imagesize-1, wgsy1, wgsx2,
+  wgsy1, wgsx1,
+  wgsy2, wgsx1,
+  wgsy2, wgsx2,
+  wgsy1, wgsx2))
+kapfile.flush()
+print(kapfile.name)
+
 print(wmstmpl % (x1,y1,x2,y2,imagesize,imagesize))
+
+(imagefilename, headers) = urllib.urlretrieve(wmstmpl % (x1,y1,x2,y2,imagesize,imagesize))
+print(imagefilename)
+
+
+subprocess.call(["/home/jtorma/src/imgkap/imgkap", imagefilename, kapfile.name, "/tmp/out.kap"])
