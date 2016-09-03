@@ -9,17 +9,16 @@ p1 = pyproj.Proj(init="epsg:3067")
 p2 = pyproj.Proj(init="epsg:4326")
 
 
-x1 = 346670
-y1 = 6655590
-x2 = 356670
-y2 = 6665590
+x1 = 356670
+y1 = 6645590
+x2 = 366670
+y2 = 6655590
 
 (wgsx1, wgsy1) = pyproj.transform(p1,p2,x1,y1)
 (wgsx2, wgsy2) = pyproj.transform(p1,p2,x2,y2)
 
 # calculate image scale
 imagesize = 4096
-imagesize = 1024
 dpi = 72
 dpm = dpi / 0.0254
 imagemeters = imagesize / dpm
