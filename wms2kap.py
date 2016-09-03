@@ -47,7 +47,7 @@ DTM/0.00,0.00
 CPH/0.0
 """
 
-wmstmpl = "http://kartta.liikennevirasto.fi/meriliikenne/dgds/wms_ip/merikartta?request=GetMap&BBOX=346670,6655590,356670,6665590&width=4096&height=4096&layers=cells&format=image/png&srs=EPSG:3067"
+wmstmpl = "http://kartta.liikennevirasto.fi/meriliikenne/dgds/wms_ip/merikartta?request=GetMap&BBOX=%d,%d,%d,%d&width=%d&height=%d&layers=cells&format=image/png&srs=EPSG:3067"
 
 print(kaptmpl % (imagesize, imagesize, dpi, scale, averagelatitude,
   0,imagesize-1, wgsy1, wgsx1,
@@ -58,3 +58,5 @@ print(kaptmpl % (imagesize, imagesize, dpi, scale, averagelatitude,
   wgsy2, wgsx1,
   wgsy2, wgsx2,
   wgsy1, wgsx2))
+
+print(wmstmpl % (x1,y1,x2,y2,imagesize,imagesize))
