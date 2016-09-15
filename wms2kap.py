@@ -50,7 +50,7 @@ DTM/0.00,0.00
 CPH/0.0
 """
 
-wmstmpl = "http://kartta.liikennevirasto.fi/meriliikenne/dgds/wms_ip/merikartta?request=GetMap&BBOX=%d,%d,%d,%d&width=%d&height=%d&layers=cells&format=image/png&srs=EPSG:3067"
+wmstmpl = "http://kartta.liikennevirasto.fi/meriliikenne/dgds/wms_ip/merikartta?request=GetMap&BBOX=%.8f,%.8f,%.8f,%.8f&width=%d&height=%d&layers=cells&format=image/png&srs=EPSG:4326"
 
 print(kaptmpl % (imagesize, imagesize, dpi, scale, averagelatitude,
   0,imagesize-1, wgsy1, wgsx1,
@@ -75,7 +75,7 @@ kapfile.write(kaptmpl % (imagesize, imagesize, dpi, scale, averagelatitude,
 kapfile.flush()
 print(kapfile.name)
 
-print(wmstmpl % (x1,y1,x2,y2,imagesize,imagesize))
+print(wmstmpl % (wgsx1,wgsy1,wgsx2,wgsy2,imagesize,imagesize))
 
 (imagefilename, headers) = urllib.urlretrieve(wmstmpl % (x1,y1,x2,y2,imagesize,imagesize))
 print(imagefilename)
