@@ -77,7 +77,7 @@ print(kapfile.name)
 
 print(wmstmpl % (wgsx1,wgsy1,wgsx2,wgsy2,imagesize,imagesize))
 
-(imagefilename, headers) = urllib.urlretrieve(wmstmpl % (x1,y1,x2,y2,imagesize,imagesize))
+(imagefilename, headers) = urllib.urlretrieve(wmstmpl % (wgsx1,wgsy1,wgsx2,wgsy2,imagesize,imagesize))
 print(imagefilename)
 
 
